@@ -33,6 +33,12 @@ export default function Home() {
           />
 
           <ToolCard
+            title="To-Do List"
+            subtitle="Organize your tasks and stay productive"
+            onPress={() => router.push("/todo")}
+          />
+
+          <ToolCard
             title="Calculator"
             subtitle="Perform quick calculations"
             onPress={() => router.push("/calculator")}

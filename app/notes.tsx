@@ -13,13 +13,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AppHeader from "../components/AppHeader";
 import NoteCard from "../components/NoteCard";
 import useTheme from "../hooks/useTheme";
-import { getNotes, saveNotes } from "../utils/storage";
+import {
+  getNotes,
+  addNote,
+  updateNote,
+  deleteNote,
+  Note,
+} from "@/services/noteService";
 
-type Note = {
-  id: string;
-  title: string;
-  content: string;
-};
 
 export default function Notes() {
   const COLORS = useTheme();
@@ -46,9 +47,11 @@ export default function Notes() {
     let updated;
 
     if (editingId) {
-      updated = notes.map((n) =>
-        n.id === editingId ? { ...n, title, content } : n,
-      );
+      updated = await updateNote({
+        id: editingId,
+        title,
+        content,
+      });
       setEditingId(null);
     } else {
       const newNote = {
@@ -56,21 +59,19 @@ export default function Notes() {
         title,
         content,
       };
-      updated = [newNote, ...notes];
+
+      updated = await addNote(newNote);
     }
 
     setNotes(updated);
-    await saveNotes(updated);
-
     setTitle("");
     setContent("");
     setMode("list");
   };
 
   const handleDelete = async (id: string) => {
-    const updated = notes.filter((n) => n.id !== id);
+    const updated = await deleteNote(id);
     setNotes(updated);
-    await saveNotes(updated);
   };
 
   const handleEdit = (note: Note) => {

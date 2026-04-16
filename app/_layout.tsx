@@ -26,6 +26,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="converter" options={{ headerShown: false }} />
         <Stack.Screen name="notes" options={{ headerShown: false }} />
+        <Stack.Screen name="todo" options={{ headerShown: false }} />
         <Stack.Screen name="calculator" options={{ headerShown: false }} />
         <Stack.Screen name="bmi" options={{ headerShown: false }} />
       </Stack>
